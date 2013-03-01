@@ -1,0 +1,58 @@
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+body{
+	margin: 0 auto;
+	padding: 0;
+	max-width: 600px;
+}
+
+form{
+	background: #eee;
+	color: #3E6F82;
+	font-size: 2em;
+	line-height: 2;
+}
+
+input{
+	display: inline-block;
+	*display: inline;
+	margin: 0;
+	font-family: "Helvetica Neue-Light", "Helvatica Neue", "Helvetica", Arial, sans-serif !important;
+	font-weight: 300 !important;
+	background: none;
+	border: none;
+	padding: 10px;
+	line-height: 2;
+	color: #3E6F82;
+}
+
+#title{
+	width: 80%;
+	background: #3E6F82;
+	font-size: 1em;
+	color: #fff;
+}
+
+#send{
+	width: 20%;
+	background: #144254;
+	font-size: 1em;
+	color: #fff;
+}
+
+#submit{
+	display: none;
+}
+
+.time{
+	font-size: 1.5em;
+	width: 80%;
+}
+
+/*WebKit hides*/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Zeitmessung</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<form name="timer" action="">
+		<input name="title" id="title" type="text" value="Time is Money!"><input name="submit" id="submit" type="button" value="+"><br>
+		<input name="hour" id="hour" class="time" type="number" value="0" disabled>:
+		<input name="minute" id="minute" class="time" type="number" value="0" disabled>:
+		<input name="second" id="second" class="time" type="number" value="0" disabled>
+		<input name="startcounter" id="start" type="button" value="start">
+		<input name="stopcounter" id="stop" type="button" value="stop">
+	</form>
+	<script type="text/javascript">
+		//Vaiables
+		var start = document.timer.startcounter;
+		var stop = document.timer.stopcounter;
+		var submit = document.timer.submit;
+		var h = document.timer.hour;
+		var m = document.timer.minute;
+		var s = document.timer.second;
+		var timer = null;
+
+		//Event Listener
+		//Start Counter
+		start.addEventListener("click", startcounter);
+		function startcounter(e){
+			if(timer !== null){
+				return;
+			}else{
+				date = new Date();
+				if(h.value != 0 || m.value != 0 || s.value != 0){
+					date.setTime(date.getTime() - ((h.value*3600 + m.value*60 + s.value)*1000));
+				}
+				count(date);
+				stop.value = "stop";
+			}
+		}
+
+		//Stop Counter/Reset Counter
+		stop.addEventListener("click", stopcounter);
+		function stopcounter(e){
+			if(timer === null){
+				h.value = 0;
+				m.value = 0;
+				s.value = 0;
+				stop.value = "stop";
+			}else{
+				clearTimeout(timer);
+				timer = null;
+				stop.value = "reset";
+			}
+		}
+
+		//Leading Zero
+		h.addEventListener("change", zero);
+		m.addEventListener("change", zero);
+		s.addEventListener("change", zero);
+		function zero(e){
+			if(e.target.value < 10) e.target.value = "0".e.target.value;
+		}
+
+		//Submit Form
+		submit.addEventListener("click", submit);
+		function submit(e){
+			if(timer !== null){
+				stopcounter(e);
+			}
+			document.timer.submit();
+			document.timer.reset();
+		}
+
+
+		//Zähler
+		function count(date){
+			var newDate = new Date();
+			var dif = newDate.getTime() - date.getTime();
+			dif = Math.floor(dif/1000);
+			h.value = Math.floor(dif/3600);
+			m.value = Math.floor(dif%3600/60);
+			s.value = (dif%3600)%60;
+			timer = window.setTimeout(function() {
+			  count(date);
+			}, 200);
+		}
+	</script>
+</body>
+</html>
